@@ -14,6 +14,8 @@ class Rational {
 
     Rational(long numerator, long denominator) throws Illegal { 
         // to be completed
+        this.numerator = numerator;
+        this.denominator = denominator;
     } 
 
     // find the reduce form 
@@ -46,6 +48,9 @@ class Rational {
      */
     public void subtract(Rational x) {
         // to be completed
+        numerator = (numerator * x.denominator) - (x.numerator * denominator);
+        denominator = (denominator * x.denominator);
+        simplestForm();
     }
 
     /***
@@ -54,6 +59,9 @@ class Rational {
      */
     public void multiply(Rational x) { 
         // to be completed
+        numerator = (x.numerator * numerator);
+        denominator = (denominator * x.denominator);
+        simplestForm();
     }
 
     /***
@@ -62,6 +70,9 @@ class Rational {
      */
     public void divide(Rational x) {
         // to be completed
+        numerator = (x.numerator * denominator );
+        denominator = (denominator * x.numerator);
+        simplestForm();
     }
 
     /***
@@ -71,7 +82,23 @@ class Rational {
      */
     public boolean equals(Object x) {
         // to be completed
-        return true; // TODO: This needs to be modified.
+        if(x instanceof String){
+            String str[] = ((String) x).split("/");
+            try {
+                Rational r = new Rational(Long.parseLong(str[0]), Long.parseLong(str[1])) ;
+                r.simplestForm();
+                this.simplestForm();
+                return (((Rational) r).numerator == numerator) && (((Rational) r).denominator == denominator);
+            } catch (Illegal e) {
+                throw new RuntimeException(e);
+            }
+        }else if(x instanceof Rational){
+            simplestForm();
+            ((Rational) x).simplestForm();
+            return (((Rational) x).numerator == numerator) && (((Rational) x).denominator == denominator);
+        }
+        // TODO: This needs to be modified.
+        return false;
     }
 
     /***
@@ -82,7 +109,27 @@ class Rational {
      */
     public long compareTo(Object x) {
         // to be completed
-        return -1; // TODO: this needs to be modified.
+        Rational r = null;
+        if(x instanceof String){
+            String str[] = ((String) x).split("/");
+            try {
+                r = new Rational(Long.parseLong(str[0]), Long.parseLong(str[1])) ;
+                r.simplestForm();
+            } catch (Illegal e) {
+                throw new RuntimeException(e);
+            }
+        }
+        simplestForm();
+        long tmp1 = numerator/denominator;
+        long tmp2 = r.numerator/r.denominator;
+        if(tmp1 > tmp2){
+            return 1;
+        } else if (tmp1 == tmp2) {
+           return 0;
+        }
+        else {
+            return -1;
+        }// TODO: this needs to be modified.
     }
 
     /***
@@ -91,7 +138,7 @@ class Rational {
      */
     public String toString() { 
         // to be completed
-        return ""; // TODO: This needs to be modified.
+        return numerator + "/" + denominator; // TODO: This needs to be modified.
     }
 
     public static void main(String[] args) {
