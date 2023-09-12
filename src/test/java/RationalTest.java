@@ -33,10 +33,10 @@ public class RationalTest {
         r.denominator = 2;
         Rational s = new Rational();
         s.numerator = 1;
-        s.denominator = 3;
-        r.multiply(s);
+        s.denominator = 4;
+        r.subtract(s);
         Assert.assertEquals(1, r.numerator);
-        Assert.assertEquals(6, r.denominator);
+        Assert.assertEquals(4, r.denominator);
     }
 
     @Test
