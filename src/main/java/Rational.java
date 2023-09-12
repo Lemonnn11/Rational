@@ -110,26 +110,27 @@ class Rational {
     public long compareTo(Object x) {
         // to be completed
         Rational r = null;
+        double tmp2 = 0;
+
         if(x instanceof String){
             String str[] = ((String) x).split("/");
             try {
                 r = new Rational(Long.parseLong(str[0]), Long.parseLong(str[1])) ;
                 r.simplestForm();
+                tmp2 = (double) r.numerator /r.denominator;
             } catch (Illegal e) {
                 throw new RuntimeException(e);
             }
+        }else if(x instanceof Rational){
+            ((Rational) x).simplestForm();
+            tmp2 = (double) ((Rational) x).numerator / ((Rational) x).denominator;
         }
-        simplestForm();
-        long tmp1 = numerator/denominator;
-        long tmp2 = r.numerator/r.denominator;
-        if(tmp1 > tmp2){
-            return 1;
-        } else if (tmp1 == tmp2) {
-           return 0;
-        }
-        else {
-            return -1;
-        }// TODO: this needs to be modified.
+
+        this.simplestForm();
+        double tmp1 = (double) this.numerator /this.denominator;
+
+        // TODO: this needs to be modified.
+        return Double.compare(tmp1, tmp2);
     }
 
     /***

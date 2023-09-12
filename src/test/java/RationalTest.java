@@ -84,4 +84,25 @@ public class RationalTest {
         Assert.assertTrue(r.equals("2/4"));
     }
 
+    @Test
+    public void testCompareTo1(){
+        Rational r = new Rational();
+        r.numerator = 1;
+        r.denominator = 2;
+        Rational s = new Rational();
+        s.numerator = 1;
+        s.denominator = 3;
+        long result = r.compareTo(s);
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
+    public void testCompareTo2(){
+        Rational r = new Rational();
+        r.numerator = 1;
+        r.denominator = 2;
+        long result = r.compareTo("1/2");
+        Assert.assertEquals(0, result);
+    }
+
 }
